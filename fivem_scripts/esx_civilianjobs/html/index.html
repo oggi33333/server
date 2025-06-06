@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zivilistenjobs</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="civilian-menu" class="menu-container" style="display: none;">
+        <div class="menu-header">
+            <div class="header-content">
+                <i class="fas fa-briefcase"></i>
+                <h1>Zivilistenjobs</h1>
+                <button class="close-btn" onclick="closeMenu()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="job-info">
+                <div class="current-job">
+                    <span id="current-job-text">Aktueller Job: Arbeitslos</span>
+                    <span id="job-status" class="status-inactive">Inaktiv</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-content">
+            <div class="jobs-grid">
+                <!-- Garbage Collector Job -->
+                <div class="job-card" data-job="garbage">
+                    <div class="job-header">
+                        <i class="fas fa-trash-alt"></i>
+                        <h3>Müllmann</h3>
+                    </div>
+                    <div class="job-description">
+                        <p>Sammle Müll in der ganzen Stadt und verdiene Geld für jeden Container.</p>
+                        <div class="job-details">
+                            <div class="detail-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>$50-150 pro Container</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-truck"></i>
+                                <span>Müllwagen inklusive</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-clock"></i>
+                                <span>~30 Minuten Route</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <button class="btn-start" onclick="startJob('garbage')">
+                            <i class="fas fa-play"></i>
+                            Job starten
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Fisherman Job -->
+                <div class="job-card" data-job="fishing">
+                    <div class="job-header">
+                        <i class="fas fa-fish"></i>
+                        <h3>Fischer</h3>
+                    </div>
+                    <div class="job-description">
+                        <p>Angle an verschiedenen Stellen und verkaufe deine Fänge für gutes Geld.</p>
+                        <div class="job-details">
+                            <div class="detail-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>$25-500 pro Fisch</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-water"></i>
+                                <span>5 Angelplätze</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Seltene Fische = Mehr Geld</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <button class="btn-start" onclick="startJob('fishing')">
+                            <i class="fas fa-play"></i>
+                            Job starten
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Delivery Driver Job -->
+                <div class="job-card" data-job="delivery">
+                    <div class="job-header">
+                        <i class="fas fa-shipping-fast"></i>
+                        <h3>Lieferfahrer</h3>
+                    </div>
+                    <div class="job-description">
+                        <p>Liefere Pakete zu verschiedenen Adressen in der Stadt und verdiene pro Lieferung.</p>
+                        <div class="job-details">
+                            <div class="detail-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>$100-250 pro Lieferung</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-van-shuttle"></i>
+                                <span>Lieferwagen inklusive</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marked-alt"></i>
+                                <span>5 Lieferstellen</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <button class="btn-start" onclick="startJob('delivery')">
+                            <i class="fas fa-play"></i>
+                            Job starten
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Construction Worker Job -->
+                <div class="job-card" data-job="construction">
+                    <div class="job-header">
+                        <i class="fas fa-hard-hat"></i>
+                        <h3>Bauarbeiter</h3>
+                    </div>
+                    <div class="job-description">
+                        <p>Arbeite auf Baustellen und verdiene Geld durch körperliche Arbeit.</p>
+                        <div class="job-details">
+                            <div class="detail-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>$150-350 pro Arbeit</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-tools"></i>
+                                <span>4 Baustellen</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-award"></i>
+                                <span>Stunden-Bonus</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <button class="btn-start" onclick="startJob('construction')">
+                            <i class="fas fa-play"></i>
+                            Job starten
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Clothing Store Employee -->
+                <div class="job-card" data-job="clothing">
+                    <div class="job-header">
+                        <i class="fas fa-tshirt"></i>
+                        <h3>Kleidungsladen</h3>
+                    </div>
+                    <div class="job-description">
+                        <p>Arbeite in einem Kleidungsladen und verdiene Provision durch Verkäufe.</p>
+                        <div class="job-details">
+                            <div class="detail-item">
+                                <i class="fas fa-percentage"></i>
+                                <span>10% Provision</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-store"></i>
+                                <span>Verkaufs-Bonus</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-users"></i>
+                                <span>Kunden bedienen</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <button class="btn-start" onclick="startJob('clothing')">
+                            <i class="fas fa-play"></i>
+                            Job starten
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Taxi Driver Job -->
+                <div class="job-card" data-job="taxi">
+                    <div class="job-header">
+                        <i class="fas fa-taxi"></i>
+                        <h3>Taxi Fahrer</h3>
+                    </div>
+                    <div class="job-description">
+                        <p>Fahre Kunden zu ihren Zielen und verdiene Geld pro Fahrt und Trinkgeld.</p>
+                        <div class="job-details">
+                            <div class="detail-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <span>$2 pro Meter + Trinkgeld</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-car"></i>
+                                <span>Taxi inklusive</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-star"></i>
+                                <span>Bewertungs-System</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-actions">
+                        <button class="btn-start" onclick="startJob('taxi')">
+                            <i class="fas fa-play"></i>
+                            Job starten
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Control Panel -->
+            <div class="job-control-panel" id="job-control" style="display: none;">
+                <div class="control-header">
+                    <h3><i class="fas fa-cog"></i> Job Control</h3>
+                </div>
+                <div class="control-content">
+                    <div class="control-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="job-time">00:00:00</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span id="job-earnings">$0</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-tasks"></i>
+                            <span id="job-progress">0/0</span>
+                        </div>
+                    </div>
+                    <div class="control-actions">
+                        <button class="btn-stop" onclick="stopJob()">
+                            <i class="fas fa-stop"></i>
+                            Job beenden
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Panel -->
+            <div class="stats-panel">
+                <div class="stats-header">
+                    <h3><i class="fas fa-chart-bar"></i> Deine Statistiken</h3>
+                </div>
+                <div class="stats-content">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-briefcase"></i>
+                            <div class="stat-info">
+                                <span class="stat-value" id="total-jobs">0</span>
+                                <span class="stat-label">Jobs abgeschlossen</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <div class="stat-info">
+                                <span class="stat-value" id="total-earned">$0</span>
+                                <span class="stat-label">Insgesamt verdient</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-trophy"></i>
+                            <div class="stat-info">
+                                <span class="stat-value" id="best-job">-</span>
+                                <span class="stat-label">Bester Job</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-clock"></i>
+                            <div class="stat-info">
+                                <span class="stat-value" id="total-time">0h</span>
+                                <span class="stat-label">Zeit gearbeitet</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
