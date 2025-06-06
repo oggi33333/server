@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Police Job Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="police-menu" class="menu-container" style="display: none;">
+        <div class="menu-header">
+            <div class="header-content">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Polizei Zentrale</h1>
+                <button class="close-btn" onclick="closeMenu()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="duty-status">
+                <span id="duty-text">Außer Dienst</span>
+                <button id="duty-toggle" class="duty-btn off" onclick="toggleDuty()">
+                    <i class="fas fa-power-off"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="menu-content">
+            <div class="menu-section">
+                <h2><i class="fas fa-car"></i> Fahrzeuge</h2>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="spawnVehicle('police')" data-requires-duty="true">
+                        <i class="fas fa-car-side"></i>
+                        Streifenwagen
+                    </button>
+                    <button class="action-btn" onclick="spawnVehicle('police2')" data-requires-duty="true">
+                        <i class="fas fa-truck"></i>
+                        SUV
+                    </button>
+                    <button class="action-btn" onclick="spawnVehicle('policeb')" data-requires-duty="true">
+                        <i class="fas fa-motorcycle"></i>
+                        Motorrad
+                    </button>
+                    <button class="action-btn" onclick="spawnVehicle('polmav')" data-requires-duty="true">
+                        <i class="fas fa-helicopter"></i>
+                        Helikopter
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2><i class="fas fa-handcuffs"></i> Spieler Aktionen</h2>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="arrestPlayer()" data-requires-duty="true">
+                        <i class="fas fa-user-lock"></i>
+                        Verhaften
+                    </button>
+                    <button class="action-btn" onclick="searchPlayer()" data-requires-duty="true">
+                        <i class="fas fa-search"></i>
+                        Durchsuchen
+                    </button>
+                    <button class="action-btn" onclick="showFineModal()" data-requires-duty="true">
+                        <i class="fas fa-receipt"></i>
+                        Strafe erteilen
+                    </button>
+                    <button class="action-btn" onclick="checkLicense()" data-requires-duty="true">
+                        <i class="fas fa-id-card"></i>
+                        Ausweis prüfen
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2><i class="fas fa-radio"></i> Kommunikation</h2>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="requestBackup()" data-requires-duty="true">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Verstärkung
+                    </button>
+                    <button class="action-btn" onclick="showAnnouncementModal()" data-requires-duty="true">
+                        <i class="fas fa-bullhorn"></i>
+                        Durchsage
+                    </button>
+                    <button class="action-btn" onclick="openRadio()" data-requires-duty="true">
+                        <i class="fas fa-walkie-talkie"></i>
+                        Funk
+                    </button>
+                    <button class="action-btn" onclick="openDispatch()" data-requires-duty="true">
+                        <i class="fas fa-headset"></i>
+                        Notruf
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2><i class="fas fa-database"></i> Datenbank</h2>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="checkWarrants()" data-requires-duty="true">
+                        <i class="fas fa-gavel"></i>
+                        Haftbefehle
+                    </button>
+                    <button class="action-btn" onclick="checkFines()" data-requires-duty="true">
+                        <i class="fas fa-file-invoice"></i>
+                        Strafen
+                    </button>
+                    <button class="action-btn" onclick="checkVehicles()" data-requires-duty="true">
+                        <i class="fas fa-car"></i>
+                        Fahrzeuge
+                    </button>
+                    <button class="action-btn" onclick="checkPersons()" data-requires-duty="true">
+                        <i class="fas fa-users"></i>
+                        Personen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fine Modal -->
+    <div id="fine-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Strafe erteilen</h3>
+                <button class="close-btn" onclick="closeFineModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="fine-amount">Betrag ($)</label>
+                    <input type="number" id="fine-amount" placeholder="z.B. 500" min="1" max="50000">
+                </div>
+                <div class="input-group">
+                    <label for="fine-reason">Grund</label>
+                    <select id="fine-reason">
+                        <option value="Geschwindigkeitsüberschreitung">Geschwindigkeitsüberschreitung</option>
+                        <option value="Reckless Driving">Reckless Driving</option>
+                        <option value="Illegale Waffen">Illegale Waffen</option>
+                        <option value="Drogen">Drogen</option>
+                        <option value="Störung der öffentlichen Ordnung">Störung der öffentlichen Ordnung</option>
+                        <option value="Andere">Andere</option>
+                    </select>
+                </div>
+                <div class="input-group" id="custom-reason-group" style="display: none;">
+                    <label for="custom-reason">Benutzerdefinierter Grund</label>
+                    <input type="text" id="custom-reason" placeholder="Grund eingeben...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeFineModal()">Abbrechen</button>
+                <button class="btn-confirm" onclick="submitFine()">Strafe erteilen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Announcement Modal -->
+    <div id="announcement-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Polizei Durchsage</h3>
+                <button class="close-btn" onclick="closeAnnouncementModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="announcement-text">Nachricht</label>
+                    <textarea id="announcement-text" placeholder="Durchsage eingeben..." rows="4"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeAnnouncementModal()">Abbrechen</button>
+                <button class="btn-confirm" onclick="submitAnnouncement()">Senden</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
