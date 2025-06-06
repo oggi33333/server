@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gang Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="gang-menu" class="menu-container" style="display: none;">
+        <div class="menu-header">
+            <div class="header-content">
+                <i class="fas fa-users-slash"></i>
+                <h1 id="gang-name">Gang Management</h1>
+                <button class="close-btn" onclick="closeMenu()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="gang-info">
+                <div class="gang-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-crown"></i>
+                        <span id="gang-rank">Rang: Member</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <span id="member-count">Mitglieder: 0</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span id="gang-money">Bank: $0</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span id="territory-count">Territorien: 0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-content">
+            <div class="menu-section">
+                <h2><i class="fas fa-user-friends"></i> Mitgliederverwaltung</h2>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="invitePlayer()" data-requires-rank="3">
+                        <i class="fas fa-user-plus"></i>
+                        Spieler einladen
+                    </button>
+                    <button class="action-btn" onclick="showMembersModal()">
+                        <i class="fas fa-users"></i>
+                        Mitglieder anzeigen
+                    </button>
+                    <button class="action-btn" onclick="showRankModal()" data-requires-rank="4">
+                        <i class="fas fa-user-cog"></i>
+                        Ränge verwalten
+                    </button>
+                    <button class="action-btn" onclick="leaveGang()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Gang verlassen
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2><i class="fas fa-map"></i> Territorien</h2>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="showTerritoriesModal()">
+                        <i class="fas fa-eye"></i>
+                        Territorien anzeigen
+                    </button>
+                    <button class="action-btn" onclick="showAttackModal()" data-requires-rank="2">
+                        <i class="fas fa-crosshairs"></i>
+                        Territorium angreifen
+                    </button>
+                    <button class="action-btn" onclick="defendTerritories()">
+                        <i class="fas fa-shield-alt"></i>
+                        Verteidigen
+                    </button>
+                    <button class="action-btn" onclick="showGangWarsModal()" data-requires-rank="5">
+                        <i class="fas fa-fire"></i>
+                        Gang Wars
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2><i class="fas fa-pills"></i> Drogenhandel</h2>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="startDrugRun()">
+                        <i class="fas fa-truck"></i>
+                        Drug Run starten
+                    </button>
+                    <button class="action-btn" onclick="sellDrugs()">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        Drogen verkaufen
+                    </button>
+                    <button class="action-btn" onclick="showDrugStatsModal()">
+                        <i class="fas fa-chart-line"></i>
+                        Verkaufsstatistiken
+                    </button>
+                    <button class="action-btn" onclick="buyDrugSupplies()" data-requires-rank="3">
+                        <i class="fas fa-shopping-cart"></i>
+                        Nachschub kaufen
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2><i class="fas fa-gun"></i> Waffenhandel</h2>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="showWeaponShop()" data-requires-rank="3">
+                        <i class="fas fa-store"></i>
+                        Waffen kaufen
+                    </button>
+                    <button class="action-btn" onclick="showWeaponStorage()">
+                        <i class="fas fa-warehouse"></i>
+                        Waffenlager
+                    </button>
+                    <button class="action-btn" onclick="upgradeWeapons()" data-requires-rank="4">
+                        <i class="fas fa-wrench"></i>
+                        Waffen upgraden
+                    </button>
+                    <button class="action-btn" onclick="sellWeapons()" data-requires-rank="3">
+                        <i class="fas fa-handshake"></i>
+                        Waffen verkaufen
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2><i class="fas fa-car"></i> Fahrzeuge</h2>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="spawnGangVehicle('tornado')" data-requires-rank="2">
+                        <i class="fas fa-car-side"></i>
+                        Tornado
+                    </button>
+                    <button class="action-btn" onclick="spawnGangVehicle('buccaneer')" data-requires-rank="2">
+                        <i class="fas fa-car"></i>
+                        Buccaneer
+                    </button>
+                    <button class="action-btn" onclick="spawnGangVehicle('voodoo')" data-requires-rank="3">
+                        <i class="fas fa-car-alt"></i>
+                        Voodoo
+                    </button>
+                    <button class="action-btn" onclick="showGarageModal()" data-requires-rank="4">
+                        <i class="fas fa-warehouse"></i>
+                        Gang Garage
+                    </button>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <h2><i class="fas fa-university"></i> Gang Bank</h2>
+                <div class="button-grid">
+                    <button class="action-btn" onclick="showDepositModal()">
+                        <i class="fas fa-piggy-bank"></i>
+                        Geld einzahlen
+                    </button>
+                    <button class="action-btn" onclick="showWithdrawModal()" data-requires-rank="3">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Geld abheben
+                    </button>
+                    <button class="action-btn" onclick="showTransactionHistory()">
+                        <i class="fas fa-history"></i>
+                        Transaktionen
+                    </button>
+                    <button class="action-btn" onclick="manageSalaries()" data-requires-rank="5">
+                        <i class="fas fa-coins"></i>
+                        Gehälter verwalten
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Members Modal -->
+    <div id="members-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Gang Mitglieder</h3>
+                <button class="close-btn" onclick="closeMembersModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="members-list" class="members-list">
+                    <!-- Members will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Territories Modal -->
+    <div id="territories-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Gang Territorien</h3>
+                <button class="close-btn" onclick="closeTerritoriesModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="territories-list" class="territories-list">
+                    <!-- Territories will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weapon Shop Modal -->
+    <div id="weapon-shop-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Waffenshop</h3>
+                <button class="close-btn" onclick="closeWeaponShopModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="weapon-grid">
+                    <div class="weapon-item" onclick="buyWeapon('pistol', 1500)">
+                        <i class="fas fa-gun"></i>
+                        <h4>Pistole</h4>
+                        <p>$1,500</p>
+                    </div>
+                    <div class="weapon-item" onclick="buyWeapon('smg', 5000)">
+                        <i class="fas fa-spray-can"></i>
+                        <h4>SMG</h4>
+                        <p>$5,000</p>
+                    </div>
+                    <div class="weapon-item" onclick="buyWeapon('rifle', 12000)">
+                        <i class="fas fa-crosshairs"></i>
+                        <h4>Gewehr</h4>
+                        <p>$12,000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Money Modal -->
+    <div id="money-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="money-modal-title">Geld verwalten</h3>
+                <button class="close-btn" onclick="closeMoneyModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="money-amount">Betrag ($)</label>
+                    <input type="number" id="money-amount" placeholder="z.B. 5000" min="1">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeMoneyModal()">Abbrechen</button>
+                <button class="btn-confirm" id="money-confirm-btn">Bestätigen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attack Territory Modal -->
+    <div id="attack-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Territorium angreifen</h3>
+                <button class="close-btn" onclick="closeAttackModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="target-territory">Ziel-Territorium</label>
+                    <select id="target-territory">
+                        <option value="">Territorium auswählen...</option>
+                        <!-- Options will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="attack-info">
+                    <p><i class="fas fa-info-circle"></i> Ein Territorium-Angriff dauert 5 Minuten und kostet $10,000.</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> Erfolgsrate hängt von der Anzahl beteiligter Gang-Mitglieder ab.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeAttackModal()">Abbrechen</button>
+                <button class="btn-confirm" onclick="confirmAttack()">Angriff starten</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gang Wars Modal -->
+    <div id="gang-wars-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Gang Wars</h3>
+                <button class="close-btn" onclick="closeGangWarsModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="wars-list" id="wars-list">
+                    <!-- Active wars will be populated here -->
+                </div>
+                <div class="start-war-section">
+                    <h4>Neuen Gang War starten</h4>
+                    <div class="input-group">
+                        <label for="target-gang">Ziel-Gang</label>
+                        <select id="target-gang">
+                            <option value="ballas">Ballas</option>
+                            <option value="families">Families</option>
+                            <option value="marabunta">Marabunta Grande</option>
+                            <option value="triads">Triads</option>
+                        </select>
+                    </div>
+                    <button class="btn-confirm" onclick="startGangWar()">Gang War starten</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
